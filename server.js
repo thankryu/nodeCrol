@@ -10,6 +10,7 @@ app.listen(8080, function() {
     console.log('listening on 8080')
 });
 
+// 네이버 테스트 미사용
 app.get('/crol', function(request, response){
   (async () => {
     console.info("start")
@@ -63,6 +64,7 @@ app.get('/crol', function(request, response){
   })();
 });
 
+// 인스타 테스트 소스 참고용
 app.get('/insta', function(request, response){
   (async () => {
     console.info("start")
@@ -117,7 +119,7 @@ app.get('/insta', function(request, response){
   })();
 });
 
-
+// 인스타 크롤링 진행중
 const crawler = async () => {
   try {
     const browser = await puppeteer.launch({
@@ -154,25 +156,22 @@ const crawler = async () => {
     await page.waitForSelector("input[placeholder='검색']");
 
     await page.waitForSelector("input[placeholder='검색']");
-    await page.type("input[placeholder='검색']", '크리스마스');
+    await page.type("input[placeholder='검색']", '크리스마스'); // 검색어 입력
     await page.keyboard.press('Enter'); // Enter Key
-    //await page.waitForNavigation(); //instagram으로 넘어가는것을 대기
-    
-    
-    await page.waitForSelector('.-qQT3');
-    // await page.click(".fuqBx");
+
+    await page.waitForSelector('.-qQT3');    
     let target  = "//div[@class='fuqBx ']/div/a";
     await page.waitForXPath(target);
     let searchArr = await page.$x(target);
-    console.log('searchArr', searchArr);
+    console.log('searchArr', searchArr); // 검색 목록 조회
     let search = searchArr[0];
 
+    
     await Promise.all([
       search.click(),
       page.waitForNavigation()
   ])
   
-  v1Nh3
     // await page.click('.-qQT3'); 
     
 
@@ -214,6 +213,7 @@ const crawler = async () => {
   }
 };
 
+// 실제 테스트
 app.get('/test', function(request, response){
   crawler();
 });
